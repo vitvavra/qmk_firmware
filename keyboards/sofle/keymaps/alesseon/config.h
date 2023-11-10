@@ -15,7 +15,6 @@
 */
   #pragma once
 
-  #include "quantum/keymap_extras/keymap_czech.h"
 
 
 //#define USE_MATRIX_I2C
@@ -24,6 +23,11 @@
 
 ///https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 
+
+#ifdef ENCODER_RESOLUTION
+    #undef ENCODER_RESOLUTION
+#endif
+#define ENCODER_RESOLUTION 4
 
 #define MASTER_LEFT
 // #define MASTER_RIGHT

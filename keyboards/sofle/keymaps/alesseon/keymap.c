@@ -83,11 +83,11 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /** default
-* |   Esc    |    1     |    2     |    3     |    4     |    5     |                * |    6     |    7     |    8     |    9     |    0     |    -     |                
-* |   Tab    |    q     |    w     |    e     |    r     |    t     |                * |    y     |    u     |    i     |    o     |    p     |   bspc   |                
-* |  lshift  |    a     |    s     |    d     |    f     |    g     |                * |    h     |    j     |    k     |    l     |    ;     |    '     |                
-* |  lcrtl   |    z     |    x     |    c     |    v     |    b     |                * |    n     |    m     |    ,     |    .     |    /     |  rshift  |                
-* |  adjust  |   lalt   |  lower   |  space   |  enter   |   mute   |                * | discord  |   win    |  enter   |  raise   |  rctrl   |   ralt   |                
+* |   Esc    |    1     |    2     |    3     |    4     |    5     |                * |    6     |    7     |    8     |    9     |    0     |    -     |
+* |   Tab    |    q     |    w     |    e     |    r     |    t     |                * |    y     |    u     |    i     |    o     |    p     |   bspc   |
+* |  lshift  |    a     |    s     |    d     |    f     |    g     |                * |    h     |    j     |    k     |    l     |    ;     |    '     |
+* |  lcrtl   |    z     |    x     |    c     |    v     |    b     |                * |    n     |    m     |    ,     |    .     |    /     |  rshift  |
+* |  adjust  |   lalt   |  lower   |  space   |  enter   |   mute   |                * | discord  |   win    |  enter   |  raise   |  rctrl   |   ralt   |
 */
   [_QWERTY] = LAYOUT(
   //,------------------------------------------------.                    ,---------------------------------------------------.
@@ -99,15 +99,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
   KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,  KC_MUTE,      KC_D_MUTE,    KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
-                 KC_ADJUST, KC_LOWER, KC_LALT, KC_SPC,  KC_LGUI,   KC_LALT , KC_ENT ,  KC_RAISE, KC_EQL, KC_RALT
+                 KC_ADJUST, KC_LOWER, KC_LALT, KC_SPC,  KC_LGUI,   KC_LALT , KC_ENT ,  KC_RAISE, KC_EQL, KC_INS
   //            \--------+--------+--------+---------+-------|   |--------+---------+--------+---------+-------/
 ),
 /** _lower
-* |  trans   |    f1    |    f2    |    f3    |    f4    |    f5    |                * |    f6    |    f7    |    f8    |    f9    |   f10    |   f11    |                
-* |    `     |    1     |    2     |    3     |    4     |    5     |                * |    6     |    7     |    8     |    9     |    0     |   bspc   |                
-* |  trans   |          |          |          |  MW_UP   |   PgUp   |                * |   left   |   down   |    up    |  right   |          |   del    |                
-* |  trans   |          |          |          | WH_down  |   PgDn   |                * |          |          |          |          |          |  trans   |                
-* |  trans   |  trans   |  trans   |  trans   |  trans   |  trans   |                * |  trans   |  trans   |  trans   |  trans   |  trans   |  trans   |                
+* |  trans   |    f1    |    f2    |    f3    |    f4    |    f5    |                * |    f6    |    f7    |    f8    |    f9    |   f10    |   f11    |
+* |    `     |    1     |    2     |    3     |    4     |    5     |                * |    6     |    7     |    8     |    9     |    0     |   bspc   |
+* |  trans   |          |          |          |  MW_UP   |   PgUp   |                * |   left   |   down   |    up    |  right   |          |   del    |
+* |  trans   |          |          |          | WH_down  |   PgDn   |                * |          |          |          |          |          |  trans   |
+* |  trans   |  trans   |  trans   |  trans   |  trans   |  trans   |                * |  trans   |  trans   |  trans   |  trans   |  trans   |  trans   |
 */
 [_LOWER] = LAYOUT(
   //,------------------------------------------------.                    ,---------------------------------------------------.
@@ -379,46 +379,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef ENCODER_ENABLE
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-	} else if (index == 1) {
-		if (clockwise) {
-			tap_code(KC_WH_D);
-		} else {
-			tap_code(KC_WH_U);
-		}
-		// 	switch (get_highest_layer(layer_state)) {
-		// 	case _QWERTY:
-		// 			if (clockwise) {
-		// 				tap_code(KC_PGDN);
-		// 			} else {
-		// 				tap_code(KC_PGUP);
-		// 			}
-		// 		break;
-		// 	case _RAISE:
-		// 	case _LOWER:
-		// 			if (clockwise) {
-		// 				tap_code(KC_DOWN);
-		// 			} else {
-		// 				tap_code(KC_UP);
-		// 			}
-		// 		break;
-		// 	default:
-		// 			if (clockwise) {
-		// 				tap_code(KC_WH_D);
-		// 			} else {
-		// 				tap_code(KC_WH_U);
-		// 			}
-		// 		break;
-		// }
-    }
-    return true;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_DEFAULTS] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_LOWER] =  { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),           ENCODER_CCW_CW(RGB_SAD, RGB_SAI)  },
+    [_RAISE] =  { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),           ENCODER_CCW_CW(RGB_SPD, RGB_SPI)  },
+    [_ADJUST] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),          ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) },
+    [_NUMPAD] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_SWITCH] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  }
+};
+#endif
 
 #endif
